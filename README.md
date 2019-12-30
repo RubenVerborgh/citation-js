@@ -1,59 +1,36 @@
-<p align="center"><img alt="Citation.js" src="https://citation.js.org/static/img/square_logo_medium.png" /></p>
+# @citation-js/plugin-bibtex
+Plugin for BibTeX formats for Citation.js.
 
-Citation.js converts formats like BibTeX, Wikidata JSON and BibJSON to CSL-JSON to convert to other formats like APA, Vancouver, RIS and back to BibTeX.
-
-Read the paper "Citation.js: a format-independent, modular bibliography tool for the browser and command line" on [PeerJ Computer Science](https://peerj.com/articles/cs-214/?td=bl).
-
+[![NPM version](https://img.shields.io/npm/v/@citation-js/plugin-bibtex.svg)](https://npmjs.org/package/@citation-js/plugin-bibtex)
+[![NPM total downloads](https://img.shields.io/npm/dt/@citation-js/plugin-bibtex.svg)](https://npmcharts.com/compare/@citation-js%2Fplugin-bibtex?minimal=true)
+![License](https://img.shields.io/npm/l/@citation-js/plugin-bibtex.svg)
+![Dependency status](https://david-dm.org/citation-js/citation-js/status.svg?path=packages%2Fplugin-bibtex)
 ---
 
-<p align="center"><a href="https://citation.js.org">Site</a> • <a href="https://github.com/citation-js/citation-js">Repo</a> • <a href="https://citation.js.org/api/tutorial-getting_started.html">Getting Started</a> • <a href="https://citation.js.org/api">Documentation</a> • <a href="https://citation.js.org/demo">Demo</a></p>
+## Install
 
----
+    npm install @citation-js/plugin-bibtex
 
-[![NPM version](https://img.shields.io/npm/v/@citation-js/core.svg)](https://npmjs.org/package/@citation-js/core)
-[![NPM total downloads](https://img.shields.io/npm/dt/@citation-js/core.svg)](https://npmcharts.com/compare/@citation-js%2Fcore?minimal=true)
-[![Build Status](https://travis-ci.org/citation-js/citation-js.svg?branch=master)](https://travis-ci.org/citation-js/citation-js)
-[![devDependencies Status](https://david-dm.org/citation-js/citation-js/dev-status.svg)](https://david-dm.org/citation-js/citation-js?type=dev)
-![License](https://img.shields.io/npm/l/@citation-js/core.svg)
-[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
-[![Join the chat at https://gitter.im/citation-js/Lobby](https://badges.gitter.im/citation-js/Lobby.svg)](https://gitter.im/citation-js/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+## Usage
 
-# Packages
+Register by importing the package:
 
-## Core
+```js
+require('@citation-js/plugin-bibtex')
+```
 
-[Core functionality](https://github.com/citation-js/citation-js/tree/master/packages/core):
+## Formats
 
-  * `Cite`: reference manager
-  * `plugins`: plugins manager
-  * `util`: several utility functions and classes
-  * `version`
+Formats and other features added by this plugin.
 
-## CLI
+### BibTeX
 
-[CLI](https://github.com/citation-js/citation-js/tree/master/packages/cli):
+This plugin adds input and output support for [BibTeX](http://www.bibtex.org/), both in text form and as a JSON representation. Input types are called `@bibtex/text` and `@bibtex/object`, output format is `bibtex`. The output has format dictionary support.
 
-    Usage: citation-js [options]
+### Bib.TXT
 
-    Options:
-      -V, --version                   output the version number
-      -i, --input <path>              Input file. If all input options are omitted, it uses stdin
-      -t, --text <string>             Input text. If all input options are omitted, it uses stdin
-      -u, --url <string>              Deprecated in favor of -t, --text. If all input options are omitted, it uses stdin
-      -o, --output <path>             Output file (omit file extension). If this option is omitted, the output is written to stdout
-      -R, --output-non-real           Output as a text file
-      -f, --output-type <option>      Output structure type: string, html, json (default: "json")
-      -s, --output-style <option>     Output scheme. A combination of --output-format json and --output-style citation-* is considered invalid. Options: csl (Citation Style Lanugage JSON), bibtex, citation-* (where * is any formatting style) (default: "csl")
-      -l, --output-language <option>  Output language. [RFC 5646](https://tools.ietf.org/html/rfc5646) codes (default: "en-US")
-      -h, --help                      output usage information
+This plugin adds input and output support for [Bib.TXT](http://bibtxt.github.io/), a simplified and modernised version of BibTeX. Input types are called `@bibtxt/text` and `@bibtex/object`, output format is `bibtxt`. The output has format dictionary support.
 
-## Plugins
+### Internal
 
-| Plugin | Description |
-|---|---|
-| [`plugin-bibjson`](https://github.com/citation-js/citation-js/tree/master/packages/plugin-bibjson) | Plugin for BibJSON formats for Citation.js |
-| [`plugin-bibtex`](https://github.com/citation-js/citation-js/tree/master/packages/plugin-bibtex) | Plugin for BibTeX formats for Citation.js |
-| [`plugin-csl`](https://github.com/citation-js/citation-js/tree/master/packages/plugin-csl) | Plugin for CSL output for Citation.js |
-| [`plugin-doi`](https://github.com/citation-js/citation-js/tree/master/packages/plugin-doi) | Plugin for DOI input for Citation.js |
-| [`plugin-ris`](https://github.com/citation-js/citation-js/tree/master/packages/plugin-ris) | Plugin for RIS formats for Citation.js |
-| [`plugin-wikidata`](https://github.com/citation-js/citation-js/tree/master/packages/plugin-wikidata) | Plugin for Wikidata for Citation.js |
+This plugin also exposes input parsing methods concerning individual properties and types, under the types `@bibtex/prop` and `@bibtex/type`.
