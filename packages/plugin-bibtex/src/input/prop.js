@@ -62,8 +62,17 @@ const parseBibtexDate = function (value) {
  * @return {Object} CSL name object
  */
 const parseBibtexName = function (name) {
+  // Braces serve as special signals
   if (/{|}/.test(name)) {
-    return { literal: name.replace(/[{}]/g, '') }
+    // Recognize a family name surrounded by braces
+    const match = /^([^{}]+)\s+{([^{}]+)}$/.exec(name);
+    if (match) {
+      return { given: match[1], family: match[2] };
+    // Treat other brace constructions as literal text
+    } else {
+      return { literal: name.replace(/{|}/g, '') }
+    }
+  // No braces, parse regular name
   } else {
     return parseName(name)
   }
@@ -97,11 +106,11 @@ const parseBibtexNameList = function (list) {
 }
 
 const richTextMappings = {
-  textit: 'i',
-  textbf: 'b',
-  textsc: 'sc',
-  textsuperscript: 'sup',
-  textsubscript: 'sub'
+  textit: ['i'],
+  textbf: ['b'],
+  textsc: ['span', 'style="font-variant: small-caps;"'],
+  textsuperscript: ['sup'],
+  textsubscript: ['sub']
 }
 
 /**
@@ -126,12 +135,12 @@ const parseBibtexRichText = function (text) {
 
     // handle commands
     } else if (token[0] === '\\') {
-      let tag = richTextMappings[token.slice(1, -1)]
+      let [tag, attributes] = richTextMappings[token.slice(1, -1)]
 
       // handle known style tags
       if (tag) {
         closingTags.push(`</${tag}>`)
-        return `<${tag}>`
+        return !attributes ? `<${tag}>` : `<${tag} ${attributes}>`
 
       // handle other commands
       } else {
@@ -248,16 +257,17 @@ const parseBibTeXProp = function (name, value) {
       case 'issued':
         return parseBibtexDate(value)
 
-      case 'edition':
-        // return parseOrdinal(value)
-        return value
-
       case 'issued:date-parts.0.1':
         return parseFloat(value) ? value : months.findIndex(month => month.test(value)) + 1
 
       case 'page':
         return value.replace(/[—–]/, '-')
 
+      case 'collection-title':
+      case 'container-title':
+      case 'note':
+      case 'publisher':
+      case 'publisher-place':
       case 'title':
         return parseBibtexRichText(value)
 

@@ -36,10 +36,9 @@ function escapeValue (value) {
 const richTextMappings = {
   'i': '\\textit{',
   'b': '\\textbf{',
-  'sc': '\\textsc{',
   'sup': '\\textsuperscript{',
   'sub': '\\textsubscript{',
-  'span style="font-variant:small-caps;"': '\\textsc{',
+  'span style="font-variant: small-caps;"': '\\textsc{',
   'span class="nocase"': '{'
 }
 
@@ -60,15 +59,8 @@ function serializeRichTextValue (value) {
   return tokens.join('')
 }
 
-const richTextFields = ['title']
-
 function serializeValue (prop, value, dict) {
-  if (richTextFields.includes(prop)) {
-    value = serializeRichTextValue(value)
-  } else {
-    value = escapeValue(value)
-  }
-
+  value = serializeRichTextValue(value)
   return dict.listItem.join(`${prop} = {${value}},`)
 }
 

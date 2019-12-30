@@ -83,10 +83,10 @@
       ]
     ],
     "with rich text": [
-      "@misc{ibscsupsub, title={{\\textit{i}\\textbf{b}\\textsc{sc}\\textsuperscript{sup}\\textsubscript{sub}}}, } @misc{sc, title={{\\textsc{sc}}}, } @misc{sc, title={{{sc}}}, }",
+      "@misc{ibscsupsub, title={\\textit{i}\\textbf{b}\\textsc{sc}\\textsuperscript{sup}\\textsubscript{sub}}, } @misc{sc, booktitle={\\textsc{sc}}, } @misc{sc, title={{{sc}}}, }",
       [
-        {"type": "book", "id": "ibscsupsub", "citation-label": "ibscsupsub", "title": "<i>i</i><b>b</b><sc>sc</sc><sup>sup</sup><sub>sub</sub>"},
-        {"type": "book", "id": "sc", "citation-label": "sc", "title": "<sc>sc</sc>"},
+        {"type": "book", "id": "ibscsupsub", "citation-label": "ibscsupsub", "title": "<i>i</i><b>b</b><span style=\"font-variant: small-caps;\">sc</span><sup>sup</sup><sub>sub</sub>"},
+        {"type": "book", "id": "sc", "citation-label": "sc", "container-title": "<span style=\"font-variant: small-caps;\">sc</span>"},
         {"type": "book", "id": "sc", "citation-label": "sc", "title": "<span class=\"nocase\">sc</span>"}
       ]
     ],
@@ -105,6 +105,32 @@
           "literal": "13th Century"
         }
       }]
+    ],
+    "with an author that has a braced family name": [
+      "@article{myarticle, author={Hermann {von Helmholtz}}}",
+      [
+        {
+          "citation-label": "myarticle",
+          "id": "myarticle",
+          "type": "article-journal",
+          "author": [
+            {"family": "von Helmholtz", "given": "Hermann"}
+          ]
+        }
+      ]
+    ],
+    "with an author in braces": [
+      "@article{myarticle, author={{Acme Inc.}}}",
+      [
+        {
+          "citation-label": "myarticle",
+          "id": "myarticle",
+          "type": "article-journal",
+          "author": [
+            {"literal": "Acme Inc."}
+          ]
+        }
+      ]
     ],
     "with authors with non-ASCII characters": [
       "@article{myarticle, author={von Helmholtz, Hermann and von Helmhöltz, Hermänñ and von Helmh\\\"oltz, Herm\\\"an\\~n and von Helmh{\\\"o}ltz, Herm{\\\"a}n{\\~n}}}",
